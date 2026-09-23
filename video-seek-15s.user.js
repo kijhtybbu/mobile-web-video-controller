@@ -3,7 +3,7 @@
 // @name:en      Mobile Web Video Controller (±15s Seek & 2X Speed)
 // @namespace    https://github.com/kijhtybbu/mobile-web-video-controller
 // @version      1.1.0
-// @description  为移动端网页视频添加 ±15s 按钮、双击快进快退与长按2倍速功能，避开原生进度条并防止手势事件泄露
+// @description  为移动端网页视频播放控制器加入快捷控制功能(±15s跳转/手势/长按2倍速)
 // @description:en Add ±15s seek buttons, double-tap gestures, and hold-for-2x speed to mobile web video players with full touch isolation.
 // @author       kijhtybbu
 // @match        *://*/*
