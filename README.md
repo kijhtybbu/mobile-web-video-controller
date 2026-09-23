@@ -1,10 +1,98 @@
 # 移动端网页视频播放控制器 (Mobile Web Video Controller)
 
-专为安卓端移动浏览器（Via、X 浏览器、Kiwi、Firefox Mobile、Lemur 等）打造的通用网页视频控制脚本。为所有网页播放器带来媲美原生客户端的快进、快退与长按倍速体验。
+[English](#english) | [中文说明](#中文说明)
 
 ---
 
-## ✨ 核心特性
+<a id="english"></a>
+## English
+
+A universal userscript designed for mobile web browsers (Via, X Browser, Kiwi, Firefox Mobile, Lemur, etc.) that brings a native-app-grade video playback experience to all mobile web players, featuring ±15s seek buttons, double-tap gestures, and press-and-hold 2x speed.
+
+### ✨ Key Features
+
+- ⏩ **Dual-Direction ±15s Seeking**:
+  - **Double Tap**: Double tap the left side to seek backward 15s; double tap the right side to seek forward 15s.
+  - **Large Floating Buttons**: Tap to reveal 60px frosted semi-transparent `-15` and `+15` text buttons for effortless control.
+- ⚡ **Hold for 2.0X Fast-Forward**:
+  - **Press and hold (>350ms)** on the right zone or the `+15` button to trigger **2.0X speed playback**, accompanied by a top HUD badge.
+  - **Release to instantly resume normal playback speed**, without triggering accidental seek jumps.
+- 🛡️ **Non-Blocking & Progress Bar Clearance**:
+  - Vertical touch area is constrained to the middle **55%** (vertically centered). The top title bar and bottom progress bar (~22.5% each) are completely untouched for smooth scrubbing.
+  - The middle 30% width is fully transparent to pass through native player taps (pause, playback menu, quality, etc.).
+- 🔒 **Strict Event Isolation**:
+  - Prevents event bubbling (`click`, `dblclick`, `touchstart`, `touchend`) to the underlying video container, eliminating annoying accidental pause or fullscreen toggles when double-tapping controls.
+- 📱 **Shadow DOM & Fullscreen Adaptive**:
+  - 100% CSS isolation via Shadow DOM to prevent style conflicts; automatically re-attaches overlay during fullscreen transitions and supports dynamic SPAs.
+
+---
+
+### 📐 Touch Zones Layout
+
+```
+┌────────────────────────────────────────────────────────┐
+│             Top Area (22.5% free - title & nav)        │
+├───────────────┬────────────────────────┬───────────────┤
+│               │                        │               │
+│   Left 35%    │       Middle 30%       │   Right 35%   │
+│               │                        │               │
+│  [  -15  ]    │    (Click-Through)     │  [  +15  ]    │
+│               │                        │               │
+│ Double-Tap:   │  Native Play / Pause   │ Double-Tap:   │
+│   Seek -15s   │   Scrub Progress Bar   │   Seek +15s   │
+│ Single-Tap:   │                        │ Hold:         │
+│   Show Buttons│                        │   2.0X Speed  │
+├───────────────┴────────────────────────┴───────────────┤
+│          Bottom Area (22.5% free - progress bar)       │
+└────────────────────────────────────────────────────────┘
+```
+
+---
+
+### 🚀 Installation
+
+#### Method 1: One-Click Install (Recommended)
+
+Click the link below in any browser with userscript support to open the installation prompt:
+
+👉 **[Install Script Directly](https://raw.githubusercontent.com/kijhtybbu/mobile-web-video-controller/master/video-seek-15s.user.js)**
+
+---
+
+#### Method 2: Manual Setup
+
+1. **Via Browser / X Browser**:
+   - Go to Settings -> "Scripts" / "User Scripts".
+   - Tap "New Script".
+   - Paste the code from [video-seek-15s.user.js](https://raw.githubusercontent.com/kijhtybbu/mobile-web-video-controller/master/video-seek-15s.user.js).
+   - Set match domain to `*`, then save and enable.
+
+2. **Kiwi / Firefox Mobile / Lemur**:
+   - Install **Tampermonkey** or **Violentmonkey** extension.
+   - Open extension dashboard, click "Add a new script".
+   - Paste the code from [video-seek-15s.user.js](https://raw.githubusercontent.com/kijhtybbu/mobile-web-video-controller/master/video-seek-15s.user.js) and save.
+
+---
+
+### ⚙️ Custom Configuration
+
+You can customize parameters directly at the top of the script:
+
+```javascript
+const SEEK_STEP = 15;        // Seconds to seek per jump (default: 15s)
+const DOUBLE_TAP_DELAY = 300; // Double-tap recognition window (ms)
+const AUTO_HIDE_DELAY = 3000; // Inactivity timeout to hide buttons (ms)
+const LONG_PRESS_DELAY = 350; // Threshold to trigger 2x playback (ms)
+```
+
+---
+
+<a id="中文说明"></a>
+## 中文说明
+
+专为安卓端移动浏览器（Via、X 浏览器、Kiwi、Firefox Mobile、Lemur 等）打造的通用网页视频控制脚本。为所有网页播放器带来媲美原生客户端的快进、快退与长按倍速体验。
+
+### ✨ 核心特性
 
 - ⏩ **双向 ±15 秒精准快进/快退**：
   - **屏幕双击**：双击视频左侧区域后退 15s，双击右侧区域前进 15s。
@@ -22,7 +110,7 @@
 
 ---
 
-## 📐 触控区域划分
+### 📐 触控区域划分
 
 ```
 ┌────────────────────────────────────────────────────────┐
@@ -42,9 +130,9 @@
 
 ---
 
-## 🚀 安装方法
+### 🚀 安装方法
 
-### 方式一：一键在线安装（推荐）
+#### 方式一：一键在线安装（推荐）
 
 在支持油猴脚本的移动浏览器中点击下方链接即可调起安装界面：
 
@@ -52,22 +140,22 @@
 
 ---
 
-### 方式二：手动导入
+#### 方式二：手动导入
 
-#### 1. Via 浏览器 / X 浏览器
+##### 1. Via 浏览器 / X 浏览器
 1. 打开浏览器设置 ->「脚本代码」或「用户脚本」管理。
 2. 点击「新建脚本」。
 3. 将 [video-seek-15s.user.js](https://raw.githubusercontent.com/kijhtybbu/mobile-web-video-controller/master/video-seek-15s.user.js) 的代码全部复制并粘贴进去。
 4. 域名匹配填写 `*`，保存并启用。
 
-#### 2. Kiwi / Firefox Mobile / Lemur 浏览器
+##### 2. Kiwi / Firefox Mobile / Lemur 浏览器
 1. 安装扩展 **Tampermonkey** 或 **Violentmonkey**。
 2. 打开扩展控制面板，点击「添加新脚本」。
 3. 粘贴 [video-seek-15s.user.js](https://raw.githubusercontent.com/kijhtybbu/mobile-web-video-controller/master/video-seek-15s.user.js) 代码，快捷键保存（Ctrl+S 或点击保存）。
 
 ---
 
-## ⚙️ 常见配置项自定义
+### ⚙️ 常见配置项自定义
 
 若希望微调秒数或延迟，可直接编辑脚本前部的常量配置：
 
@@ -80,6 +168,6 @@ const LONG_PRESS_DELAY = 350; // 长按触发 2 倍速的阈值 (毫秒)
 
 ---
 
-## 📄 开源许可
+## 📄 License
 
 本项目基于 [MIT License](LICENSE) 开源。
